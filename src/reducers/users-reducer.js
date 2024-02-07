@@ -22,6 +22,10 @@ const usersReducer = (state = initialState, action) => {
       return { ...state, data: action.payload };
     }
 
+    case 'UPDATE_USER' : {
+      return {...state, data : action.payload}
+    }
+
     case "LOGOUT_USER": {
       return { ...state, data: {} };
     }

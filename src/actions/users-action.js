@@ -49,12 +49,31 @@ export const startAddRecruiterProfile = ({ formData, resetForm, toast }) => {
       );
       dispatch(addUser(response.data));
       resetForm();
-      toast.success("Profile updated successfully");
+      toast.success("Profile created successfully");
     } catch (e) {
       dispatch(addUserServerErrors(e.response.data.errors));
     }
   };
 };
+
+//recruiter profile updating
+export const startUpdateRecruiterProfile = ({ formData, resetForm, toast})=>{
+  return async (dispatch)=>{
+    try{
+      const response = await axios.put('/api/recruiter/edit-profile', formData, {
+        headers : {
+          Authorization : localStorage.getItem('token')
+        }
+      })
+      dispatch(updateUser(response.data))
+      resetForm()
+      toast.success("Profile updated successfully");
+    }
+    catch(e){
+      alert(e.message)
+    }
+  }
+}
 
 //recruiter profile getting
 export const startGetRecruiterProfile = () => {
@@ -76,16 +95,42 @@ export const startGetRecruiterProfile = () => {
 export const startAddApplicantProfile = ({ formData, resetForm, toast }) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post("api/applicant/createProfile", formData, {
-        headers: {
-          Authorization: localStorage.getItem("token"),
-        },
-      });
+      const response = await axios.post(
+        "api/applicant/createProfile",
+        formData,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
       dispatch(addUser(response.data));
-      resetForm()
-      toast.success("Profile updated successfully");
+      resetForm();
+      toast.success("Profile created successfully");
     } catch (e) {
       dispatch(addUserServerErrors(e.response.data.errors));
+    }
+  };
+};
+
+//applicant profile updating
+export const startUpdateApplicantProfile = ({ formData, resetForm, toast }) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(
+        "/api/applicant/edit-profile",
+        formData,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+          },
+        }
+      );
+      dispatch(updateUser(response.data));
+      resetForm();
+      toast.success("Profile updated!");
+    } catch (e) {
+      alert(e.message);
     }
   };
 };
@@ -94,21 +139,24 @@ export const startAddApplicantProfile = ({ formData, resetForm, toast }) => {
 export const startGetApplicantProfile = () => {
   return async (dispatch) => {
     try {
-      const response = await axios.get('/api/applicant/myProfile', {
+      const response = await axios.get("/api/applicant/myProfile", {
         headers: {
-          Authorization: localStorage.getItem('token')
-        }
-      })
-      dispatch(addUser(response.data))
-    }
-    catch (e) {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      dispatch(addUser(response.data));
+    } catch (e) {
       toast.warning("Update your profile to unlock more features!");
     }
-  }
-}
+  };
+};
 
 const addUser = (data) => {
   return { type: "ADD_USER", payload: data };
+};
+
+const updateUser = (data) => {
+  return { type: "UPDATE_USER", payload: data };
 };
 
 export const getRole = (role) => {

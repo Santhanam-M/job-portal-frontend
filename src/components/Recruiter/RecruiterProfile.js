@@ -4,15 +4,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import {
   startGetRecruiterProfile,
+  startUpdateRecruiterProfile,
   startAddRecruiterProfile,
   clearUserServerErrors,
 } from "../../actions/users-action";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import TextInputField from "../InputComponents/TextInputField";
 import RichTextEditor from "../InputComponents/RichTextEditor";
 import AuthButton from "../AuthButton";
 
 const RecruiterProfile = () => {
+  const [editMode, setEditMode] = useState(true);
   const dispatch = useDispatch();
 
   const users = useSelector((state) => state.users);
@@ -36,11 +38,11 @@ const RecruiterProfile = () => {
 
   const userName =
     (users.data.creator ? users.data.creator.userName : "") ||
-    (users.data.recruiter ? users.data.recruiter.userName : "");
+    (users.data.recruiter ? users.data.recruiter?.creator?.userName : "");
 
   const email =
     (users.data.creator ? users.data.creator.email : "") ||
-    (users.data.recruiter ? users.data.recruiter.email : "");
+    (users.data.recruiter ? users.data.recruiter?.creator?.email : "");
 
   const recruiterValidationSchema = Yup.object().shape({
     companyName: Yup.string().required("*Company Name is required"),
@@ -61,9 +63,45 @@ const RecruiterProfile = () => {
     validationSchema: recruiterValidationSchema,
     validateOnChange: false,
     onSubmit: (formData, { resetForm }) => {
-      dispatch(startAddRecruiterProfile({ formData, resetForm, toast }));
+      if (editMode) {
+        dispatch(startAddRecruiterProfile({ formData, resetForm, toast }));
+      } else {
+        dispatch(startUpdateRecruiterProfile({ formData, resetForm, toast }));
+        setEditMode(true);
+      }
     },
   });
+
+  //edit functionality
+
+  const handleEdit = () => {
+    if (editMode) {
+      formik.setValues({
+        companyName:
+          users.data?.companyName ||
+          "" ||
+          users.data?.recruiter?.companyName ||
+          "",
+        contactNumber:
+          users.data?.contactNumber ||
+          "" ||
+          users.data?.recruiter?.contactNumber ||
+          "",
+        companyBio:
+          users.data?.companyBio ||
+          "" ||
+          users.data?.recruiter?.companyBio ||
+          "",
+      });
+    } else {
+      formik.setValues({
+        companyName: "",
+        contactNumber: "",
+        companyBio: "",
+      });
+    }
+    setEditMode(!editMode);
+  };
 
   return (
     <div className="container card p-4 rounded-5">
@@ -125,7 +163,18 @@ const RecruiterProfile = () => {
           />
 
           {/* Button */}
-          <AuthButton value="save profile" />
+          <div className="d-flex">
+            <AuthButton value="save profile" />
+            {(users.data.message || users.data.creator) && (
+              <button
+                type="button"
+                className={`btn btn-rounded btn-sm mt-3 ms-3 button-auth`}
+                onClick={handleEdit}
+              >
+                {editMode ? "Edit" : "Cancel"}
+              </button>
+            )}
+          </div>
         </div>
       </form>
     </div>

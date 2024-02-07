@@ -6,13 +6,15 @@ import AuthButton from "../AuthButton";
 import { useDispatch, useSelector } from "react-redux";
 import {
   startAddApplicantProfile,
+  startUpdateApplicantProfile,
   startGetApplicantProfile,
   clearUserServerErrors,
 } from "../../actions/users-action";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const ApplicantProfile = () => {
+  const [editMode, setEditMode] = useState(true);
   const dispatch = useDispatch();
 
   const users = useSelector((state) => state.users);
@@ -34,7 +36,7 @@ const ApplicantProfile = () => {
     contactNumber: Yup.string()
       .required("*Contact Number is required")
       .matches(/^(\+\d{1,3}[- ]?)?\d{10}$/, "Contact Number should be valid"),
-    experience: Yup.string().required("*Expereince is required"),
+    experience: Yup.string().required("*Experience is required"),
     location: Yup.string().required("*Location is required"),
   });
 
@@ -48,7 +50,12 @@ const ApplicantProfile = () => {
     validationSchema: applicantValidationSchema,
     validateOnChange: false,
     onSubmit: (formData, { resetForm }) => {
-      dispatch(startAddApplicantProfile({ formData, resetForm, toast }));
+      if (editMode) {
+        dispatch(startAddApplicantProfile({ formData, resetForm, toast }));
+      } else {
+        dispatch(startUpdateApplicantProfile({ formData, resetForm, toast }));
+        setEditMode(true);
+      }
     },
   });
 
@@ -65,11 +72,41 @@ const ApplicantProfile = () => {
 
   const userName =
     (users.data.creator ? users.data.creator.userName : "") ||
-    (users.data.applicant ? users.data.applicant.userName : "");
+    (users.data.applicant ? users.data.applicant?.creator?.userName : "");
 
   const email =
     (users.data.creator ? users.data.creator.email : "") ||
-    (users.data.applicant ? users.data.applicant.email : "");
+    (users.data.applicant ? users.data.applicant?.creator?.email : "");
+
+  // edit functionality
+  const handleEdit = () => {
+    if (editMode) {
+      formik.setValues({
+        aboutMe:
+          users.data?.applicant?.aboutMe || "" || users.data?.aboutMe || "",
+        contactNumber:
+          users.data?.applicant?.contactNumber ||
+          "" ||
+          users.data?.contactNumber ||
+          "",
+        location:
+          users.data?.applicant?.location || "" || users.data?.location || "",
+        experience:
+          users.data?.applicant?.experience ||
+          "" ||
+          users.data?.experience ||
+          "",
+      });
+    } else {
+      formik.setValues({
+        aboutMe: "",
+        contactNumber: "",
+        location: "",
+        experience: "",
+      });
+    }
+    setEditMode(!editMode);
+  };
 
   return (
     <div className="container card p-4 rounded-5">
@@ -139,7 +176,19 @@ const ApplicantProfile = () => {
           />
 
           {/* button */}
-          <AuthButton value="save profile" />
+          <div className="d-flex">
+            <AuthButton value="save profile" />
+
+            {(users.data.message || users.data.creator) && (
+              <button
+                type="button"
+                className={`btn btn-rounded btn-sm mt-3 ms-3 button-auth`}
+                onClick={handleEdit}
+              >
+                {editMode ? "Edit" : "Cancel"}
+              </button>
+            )}
+          </div>
         </div>
       </form>
     </div>
