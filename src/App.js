@@ -119,6 +119,14 @@ const App = () => {
               </AppLayout>
             }
           />
+          <Route
+            path="/job/edit/:id"
+            element={
+              <AppLayout>
+                <PostJob/>
+              </AppLayout>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

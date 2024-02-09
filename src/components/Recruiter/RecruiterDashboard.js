@@ -33,6 +33,8 @@ const RecruiterDashboard = () => {
     return state.application.data;
   });
 
+  console.log(myApplications)
+
   const shortListed = myApplications.filter((ele) => {
     return ele.status === "ShortListed";
   });
@@ -84,7 +86,7 @@ const RecruiterDashboard = () => {
       </div>
       <br />
 
-      {myJobs.length > 0 && <PieChart data={Object.entries(frequency)} />}
+      {myApplications.length > 0 && <PieChart data={Object.entries(frequency)} />}
     </div>
   );
 };

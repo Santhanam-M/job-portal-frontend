@@ -2,11 +2,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { startGetMyJobs, startRemoveJob } from "../../actions/jobs-action";
 import { startGetRecruiterProfile } from "../../actions/users-action";
-import {Link} from 'react-router-dom'
+import { Link } from "react-router-dom";
 
 const MyJobs = () => {
   const dispatch = useDispatch();
-  const myJobs = useSelector((state) => state.jobs)
+  const myJobs = useSelector((state) => state.jobs);
 
   //get my jobs
   useEffect(() => {
@@ -31,7 +31,7 @@ const MyJobs = () => {
       <h5 className="text-uppercase fw-bold text-auth ps-1">
         My jobs - {myJobs.data.length}
       </h5>
-      <hr/>
+      <hr />
 
       <div className="row">
         <div className="col-lg-12 col-md-12">
@@ -40,7 +40,6 @@ const MyJobs = () => {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Id</th>
                   <th>Title</th>
                   <th>Skills</th>
                   <th>Deadline</th>
@@ -54,7 +53,6 @@ const MyJobs = () => {
                   return (
                     <tr key={i}>
                       <td>{i + 1}</td>
-                      <td><Link to={`/myJobs/${ele._id}`}>{ele._id}</Link></td>
                       <td>{ele.title}</td>
                       <td>{ele.skills.join(", ")}</td>
                       <td>
@@ -66,11 +64,23 @@ const MyJobs = () => {
                       </td>
                       <td>{ele.experience}</td>
                       <td>
+                      <button
+                          type="button"
+                          className="btn btn-warning btn-rounded"
+                        >
+                          <Link className='text-white' to={`/myJobs/${ele._id}`}>Applicants List</Link>
+                        </button>
+
                         <button
                           type="button"
                           className="btn btn-success btn-rounded"
                         >
-                          Edit
+                          <Link
+                            className="text-white"
+                            to={`/job/edit/${ele._id}`}
+                          >
+                            Edit
+                          </Link>
                         </button>
                         <button
                           type="button"

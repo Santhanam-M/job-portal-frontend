@@ -17,6 +17,23 @@ export const startAddJob = ({ formData, resetForm, toast }) => {
   };
 };
 
+export const startEditjob = ({ formData, toast, id, navigate }) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`/api/edit-myJob/${id}`, formData, {
+        headers: {
+          Authorization: localStorage.getItem("token"),
+        },
+      });
+      dispatch(editJob(response.data));
+      toast.success("Job updated successfully");
+      navigate('/myJobs')
+    } catch (e) {
+      alert(e.message);
+    }
+  };
+};
+
 export const startGetMyJobs = () => {
   return async (dispatch) => {
     try {
@@ -80,4 +97,8 @@ const deleteJob = (data) => {
 
 const addJobServerError = (error) => {
   return { type: "JOB_SERVER_ERRORS", payload: error };
+};
+
+const editJob = (data) => {
+  return { type: "EDIT_JOB", payload: data };
 };

@@ -13,6 +13,18 @@ const jobsReducer = (state = initialState, action) => {
       return { ...state, data: [...state.data, action.payload] };
     }
 
+    case 'EDIT_JOB' : {
+      const updatedJob = state.data.map((ele)=>{
+        if(ele._id === action.payload._id){
+          return {...ele, ...action.payload}
+        }
+        else{
+          return {...ele}
+        }
+      })
+      return {...state, data : updatedJob}
+    }
+
     case "JOB_SERVER_ERRORS": {
       return { ...state, serverErrors: action.payload };
     }

@@ -7,7 +7,11 @@ import {
   startGetCategory,
 } from "../../actions/category-action";
 import { startAddCategory } from "../../actions/category-action";
-import { startAddJob, startGetAllJobs } from "../../actions/jobs-action";
+import {
+  startAddJob,
+  startGetMyJobs,
+  startEditjob,
+} from "../../actions/jobs-action";
 import { startGetRecruiterProfile } from "../../actions/users-action";
 import AuthButton from "../AuthButton";
 import { toast } from "react-toastify";
@@ -15,14 +19,37 @@ import CustomizableSelect from "../InputComponents/CustomizableSelect";
 import TextInputField from "../InputComponents/TextInputField";
 import RichTextEditor from "../InputComponents/RichTextEditor";
 import SelectMenu from "../InputComponents/SelectMenu";
+import { useParams, useNavigate } from "react-router-dom";
 
 const PostJob = () => {
   const [categoryName, setCategoryName] = useState("");
 
   const dispatch = useDispatch();
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   // fetching categories from state
   const categories = useSelector((state) => state.category);
+  const jobs = useSelector((state) => state.jobs);
+
+  //find my job and changing the date format
+  const findJob = jobs.data.find((ele) => {
+    return ele._id === id;
+  });
+
+  if (findJob) {
+    findJob.dateOfPosting = new Date(findJob.dateOfPosting)
+      .toISOString()
+      .split("T")[0];
+    findJob.deadline = new Date(findJob.deadline).toISOString().split("T")[0];
+  }
+
+  //display edit job when the page reload
+  useEffect(() => {
+    if (findJob) {
+      formik.setValues(findJob);
+    }
+  }, [findJob]);
 
   //date genration
   const today = new Date();
@@ -59,22 +86,25 @@ const PostJob = () => {
 
   const formik = useFormik({
     initialValues: {
-      title: "",
-      skills: [],
-      description: "",
-      salary: "",
-      jobType: "",
-      location: "",
-      experience: "",
-      dateOfPosting: formattedDate,
-      deadline: formattedDate,
-      category: "",
+      title: findJob ? findJob.title : "", // Prefilling title if findJob exists
+      skills: findJob ? findJob.skills : [],
+      description: findJob ? findJob.description : "",
+      salary: findJob ? findJob.salary : "",
+      jobType: findJob ? findJob.jobType : "",
+      location: findJob ? findJob.location : "",
+      experience: findJob ? findJob.experience : "",
+      dateOfPosting: findJob ? findJob.dateOfPosting : formattedDate,
+      deadline: findJob ? findJob.deadline : formattedDate,
+      category: findJob ? findJob.category : "",
     },
     validationSchema: jobValidationSchema,
     validateOnChange: false,
     onSubmit: (formData, { resetForm }) => {
-      dispatch(startAddJob({ formData, resetForm, toast }));
-      console.log(formData);
+      if (!findJob) {
+        dispatch(startAddJob({ formData, resetForm, toast }));
+      } else {
+        dispatch(startEditjob({ formData, toast, id, navigate }));
+      }
     },
   });
 
@@ -88,9 +118,9 @@ const PostJob = () => {
     dispatch(startGetRecruiterProfile());
   }, []);
 
-  //get all jobs
+  //get  myJobs
   useEffect(() => {
-    dispatch(startGetAllJobs());
+    dispatch(startGetMyJobs());
   }, []);
 
   // converting categories into react-select format
@@ -223,8 +253,8 @@ const PostJob = () => {
                 setCategoryName(e.target.value);
               }}
             />
-            {categories.serverErrors.map((ele)=>{
-              return <p style={{color : 'red'}}>{ele.msg}</p>
+            {categories.serverErrors.map((ele) => {
+              return <p style={{ color: "red" }}>{ele.msg}</p>;
             })}
             <button
               type="button"
@@ -245,7 +275,11 @@ const PostJob = () => {
         </div>
 
         {/* button */}
-        <AuthButton value="post job" />
+        {findJob ? (
+          <AuthButton value="update job" />
+        ) : (
+          <AuthButton value="post job" />
+        )}
       </form>
     </div>
   );
