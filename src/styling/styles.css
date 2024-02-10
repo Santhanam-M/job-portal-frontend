@@ -1,6 +1,24 @@
 body {
   font-family: "Helvetica", sans-serif;
+  scroll-behavior: smooth;
+  margin-bottom: 40px;
 }
+
+/* Home Page */
+.custom-img {
+  float: right;
+  width: 95%;
+  height: 95%;
+}
+
+.custom-header{
+  color: orange;
+}
+
+/* .custom-margin{
+  padding-left: 135px;
+} */
+
 /* Navbar */
 .head {
   font-size: 25px;
@@ -30,7 +48,7 @@ body {
 }
 .text-auth {
   color: #2e55fa;
-  text-shadow: 0 0 2px #2e55fa;
+  /* text-shadow: 0 0 2px #2e55fa; */
 }
 .sidebar .list-group-item {
   border-top: none;
