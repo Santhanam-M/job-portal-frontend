@@ -5,7 +5,7 @@ const AuthLayout = (props) => {
     const {children} = props
 
     return (
-        <div className="container-fluid">
+        <div className="container-fluid home">
             <div className="row align-items-center justify-content-center">
                 <div className="col-lg-6 col-md-6">
                     <img src={Auth_img} width={'85%'} />

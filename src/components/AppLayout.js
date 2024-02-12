@@ -3,7 +3,7 @@ import SideBar from "./SideBar";
 const AppLayout = (props) => {
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 home">
       <div className="row">
         <div className="col-xl-3 col-lg-4">
           <SideBar />

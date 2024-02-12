@@ -4,7 +4,7 @@ import logo from "../images/logo.png";
 const NavBar = () => {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg custom-border">
+      <nav className="navbar navbar-expand-lg bg-white custom-border fixed-top">
         <div className="container">
           {/* NavBar Brand */}
           <h1 className="navbar-brand fw-bolder my-auto head">
