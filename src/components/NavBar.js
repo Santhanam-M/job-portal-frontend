@@ -1,7 +1,19 @@
 import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
+import { useDispatch } from "react-redux";
+import { removeUser } from "../actions/users-action";
 
 const NavBar = () => {
+
+  const dispatch = useDispatch()
+
+  //home button is clicked clear localstorage
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("userRole");
+    dispatch(removeUser());
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-white custom-border fixed-top">
@@ -25,7 +37,11 @@ const NavBar = () => {
           <div className="collapse navbar-collapse" id="simple-navbar">
             <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <Link to="/" className="nav-link fw-bold fs-5 pt-2">
+                <Link
+                  to="/"
+                  className="nav-link fw-bold fs-5 pt-2"
+                  onClick={handleLogout}
+                >
                   Home
                 </Link>
               </li>

@@ -85,7 +85,7 @@ const Home = () => {
           <h6 className="display-5 fw-semibold custom-header">
             Your Next Career Start Here!
           </h6>
-          <p className="fs-5 text-auth mt-4">
+          <p className="fs-4 text-auth mt-4">
             Find your best job better and faster
           </p>
         </div>
@@ -156,13 +156,13 @@ const Home = () => {
                 filteredJobs.length > 0 ? (
                   displayJobs(filteredJobs)
                 ) : (
-                  <p className='fs-2 text-danger text-center'>No Jobs Found. Stay Tuned for Updates</p>
+                  <p className='fw-semibold fs-5 text-danger text-center'>No Jobs Found. Stay Tuned for Updates</p>
                 )
               ) : categoryId ? (
                 categoryJobs.length > 0 ? (
                   displayJobs(categoryJobs)
                 ) : (
-                  <p className='fs-2 text-danger'>No Jobs Found. Stay Tuned for Updates</p>
+                  <p className='fw-semibold fs-5 text-danger'>No Jobs Found. Stay Tuned for Updates</p>
                 )
               ) : (
                 displayJobs(jobs.data)
@@ -171,7 +171,7 @@ const Home = () => {
           </div>
         </>
       ) : (
-        <p className='text-danger'>No Jobs Found. Stay Tuned for Updates</p>
+        <p className='fw-semibold fs-5 text-center text-danger'>No Jobs Found. Stay Tuned for Updates</p>
       )}
     </div>
   );
