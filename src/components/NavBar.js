@@ -45,15 +45,16 @@ const NavBar = () => {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
+              <li className="nav-item margin-login">
                 <Link
                   to="/login"
-                  className="nav-link button-auth p-2 me-3 rounded-5"
+                  className="nav-link button-auth p-2 rounded-5"
                 >
                   <i className="fas fa-sign-in-alt me-2"></i>Login
                 </Link>
               </li>
-              <li className="nav-item">
+              
+              <li className="nav-item margin-register">
                 <Link
                   to="/register"
                   className="nav-link button-auth p-2 rounded-5"
