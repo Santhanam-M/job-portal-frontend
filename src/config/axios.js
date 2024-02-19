@@ -1,5 +1,5 @@
 import axios from 'axios'
 
 export default axios.create({
-    baseURL : 'http://localhost:3555'
+    baseURL : 'https://job-portal-backend-ncof.onrender.com'
 })
