@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+**Application Link:** job-portal-react-frontend.vercel.app/
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Features:**
+- **User Authentication:** Users can register and login securely. The roles are defined as 'applicant' or 'recruiter'.
+  
+- **Recruiter Profile:** Recruiters can create and manage their profiles, including company information and posted jobs.
+  
+- **Applicant Profile:** Applicants can create and manage their profiles, including resumes and applied jobs.
+  
+- **Resume Management:** Applicants can upload, view, and delete their resumes.
+  
+- **Job Management:** Recruiters can create, edit, and remove job postings. Applicants can view all jobs or filter based on their preferences.
+  
+- **Category Management:** Recruiters can create and manage job categories.
+  
+- **Application Management:** Applicants can apply to jobs, and recruiters can review applications and change their statuses.
 
-## Available Scripts
+**Technologies Used:**
+- **React.js:** JavaScript library for building user interfaces, used for the frontend.
 
-In the project directory, you can run:
+- **Bootstrap:** Front-end framework for building responsive websites.
+  
+- **Node.js:** JavaScript runtime environment for executing server-side code.
+  
+- **Express.js:** Web application framework for Node.js, used for building the backend.
+  
+- **MongoDB:** NoSQL database for storing application data.
+  
+- **Mongoose:** MongoDB object modeling for Node.js, used for data modeling and validation.
+  
+- **Other libraries and tools as necessary.**
 
-### `npm start`
+**Getting Started:**
+1. Clone the repository.
+2. Install dependencies using `npm install` in both the client and server directories.
+3. Set up MongoDB and configure the connection string.
+4. Run the backend server using `npm start` in the server directory.
+5. Run the frontend server using `npm start` in the client directory.
+6. Access the application in your browser at the specified URL.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Contributions:**
+Contributions are welcome! If you find any bugs or have suggestions for improvements, feel free to open an issue or submit a pull request.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**License:**
+This project is licensed under the MIT License.
