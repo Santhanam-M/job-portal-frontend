@@ -1,4 +1,4 @@
-**Application Link:** job-portal-react-frontend.vercel.app/
+**Application Link:** <a href='job-portal-react-frontend.vercel.app'>job-portal-react-frontend.vercel.app/</a>
 
 **Features:**
 - **User Authentication:** Users can register and login securely. The roles are defined as 'applicant' or 'recruiter'.
